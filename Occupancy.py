@@ -48,15 +48,15 @@ df = load_data()
 df_test = load_data()
 
 def preprocess_data(df):
-       features = ['Temperature', 'Humidity', 'Light', 'CO2']
-       X_train = df_train[features]
-       y_train = df_train['Occupancy']
-       X_test = df_test[features]
-       y_test = df_test['Occupancy']
-       scaler = StandardScaler()
-       X_train_scaled = scaler.fit_transform(X_train)
-       X_test_scaled = scaler.transform(X_test)
-   return X_train, y_train, X_test, y_test, scaler, X_train_scaled, X_test_scaled
+    features = ['Temperature', 'Humidity', 'Light', 'CO2']
+    X_train = df_train[features]
+    y_train = df_train['Occupancy']
+    X_test = df_test[features]
+    y_test = df_test['Occupancy']
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+    return X_train, y_train, X_test, y_test, scaler, X_train_scaled, X_test_scaled
 
 # Mostrar contenido basado en la selección
 if seccion == "Vista previa de los datos":
