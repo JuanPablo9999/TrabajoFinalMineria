@@ -37,29 +37,17 @@ seccion = st.sidebar.radio("Tabla de Contenidos",
 
 def load_data():
     url = "https://raw.githubusercontent.com/JuanPablo9999/TrabajoFinalMineria/main/datatrain.csv"
+    url2 = "https://raw.githubusercontent.com/JuanPablo9999/TrabajoFinalMineria/main/datatest.csv"
     try:
         df = pd.read_csv(url)
-        return df
+        df_test = pd.read_csv(url2)
+        df.drop(columns=["id", "date"], inplace=True, errors='ignore')
+        df_test.drop(columns=["id", "date"], inplace=True, errors='ignore')
+        return df, df_test
     except Exception as e:
         st.write("Error al cargar los datos:", e)
         return None
 
-df = load_data()
-
-if df is not None:
-    st.write(df.head())
-else:
-    st.write("No se pudieron cargar los datos.")
-
-
-
-# Cargar los datos
-def load_data():
-    df = pd.read_csv("https://raw.githubusercontent.com/JuanPablo9999/TrabajoFinalMineria/main/datatrain.csv")
-    df_test = pd.read_csv("https://raw.githubusercontent.com/JuanPablo9999/TrabajoFinalMineria/main/datatest.csv")
-    df.drop(columns=["id", "date"], inplace=True, errors='ignore')
-    df_test.drop(columns=["id", "date"], inplace=True, errors='ignore')
-    return df, df_test
 df = load_data()
 df_test = load_data()
 
