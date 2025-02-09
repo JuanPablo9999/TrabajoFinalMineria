@@ -33,10 +33,10 @@ seccion = st.sidebar.radio("Tabla de Contenidos",
                             "Análisis Descriptivo", 
                             "Mapa de calor de correlaciones", 
                             "Distribución de la variable objetivo", 
-                            "Boxplots", 
-                            "Conclusión: Selección del Mejor Modelo",  # Nueva ubicación
-                            "Modelo XGBoost",  # Nueva sección
-                           "Modelo de redes neuronales"])
+                            "Boxplots",
+                            "Modelo clásico: RandomForest",  # Nueva sección
+                           "Modelo de redes neuronales",
+                           "Conclusión: Selección del Mejor Modelo",  # Nueva ubicación])
 
 # Cargar los datos
 def load_data():
@@ -48,15 +48,15 @@ df = load_data()
 df_test = load_data()
 
 def preprocess_data(df):
-   features = ['Temperature', 'Humidity', 'Light', 'CO2']
-   X_train = df_train[features]
-   y_train = df_train['Occupancy']
-   X_test = df_test[features]
-   y_test = df_test['Occupancy']
-   scaler = StandardScaler()
-   X_train_scaled = scaler.fit_transform(X_train)
-   X_test_scaled = scaler.transform(X_test)
-  return X_train, y_train, X_test, y_test, scaler, X_train_scaled, X_test_scaled
+       features = ['Temperature', 'Humidity', 'Light', 'CO2']
+       X_train = df_train[features]
+       y_train = df_train['Occupancy']
+       X_test = df_test[features]
+       y_test = df_test['Occupancy']
+       scaler = StandardScaler()
+       X_train_scaled = scaler.fit_transform(X_train)
+       X_test_scaled = scaler.transform(X_test)
+   return X_train, y_train, X_test, y_test, scaler, X_train_scaled, X_test_scaled
 
 # Mostrar contenido basado en la selección
 if seccion == "Vista previa de los datos":
@@ -204,16 +204,16 @@ elif seccion == "Conclusión: Selección del Mejor Modelo":
     El **XGBoost Classifier** fue seleccionado como el mejor modelo debido a su alto rendimiento, capacidad para manejar el desequilibrio de clases, interpretabilidad de las características, eficiencia y robustez ante el overfitting. Estos factores lo convierten en la opción más adecuada para la tarea de predecir la ocupación de habitaciones, superando a otros modelos como Random Forest, Decision Tree, KNN y la red neuronal en este contexto específico.
     """)
 
-elif seccion == "Modelo XGBoost":  
-    st.subheader("Modelo planteado con XGBoost")
+elif seccion == "Modelo clásico: RandomForest":  
+    st.subheader("Modelo planteado con Randomforest")
     def load_model():
-        filename = 'xgb_model.pkl.gz'
+        filename = 'random_forest_model.pkl.gz'
         with gzip.open(filename, 'rb') as f:
             model = pickle.load(f)
         return model
     model=load_model()
     
-    st.title("Predicción con Modelo XGBoost")         
+    st.title("Predicción con Modelo RandomForest")         
     st.subheader("Hacer una Predicción")
     def user_input():
         features = {}
@@ -222,7 +222,6 @@ elif seccion == "Modelo XGBoost":
         return pd.DataFrame([features])
     
     input_data = user_input()
-    scaler = StandardScaler()
     input_scaled = scaler.fit_transform(input_data)
     y_pred = model.predict(input_scaled)
     occupancy = "Ocupado" if y_pred[0][0] > 0.5 else "No Ocupado"
