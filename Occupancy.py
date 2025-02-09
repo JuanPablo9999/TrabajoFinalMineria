@@ -8,14 +8,12 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
 from sklearn.preprocessing import StandardScaler
-from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_score
 import gzip
 import pickle
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 import shap
-import xgboost as xgb
 from sklearn.preprocessing import StandardScaler
 
 # Mostrar la imagen solo en la página de inicio
@@ -36,6 +34,24 @@ seccion = st.sidebar.radio("Tabla de Contenidos",
                             "Modelo clásico: RandomForest",  # Nueva sección
                            "Modelo de redes neuronales",
                            "Conclusión: Selección del Mejor Modelo"])  # Nueva ubicación])
+
+def load_data():
+    url = "https://raw.githubusercontent.com/JuanPablo9999/TrabajoFinalMineria/main/datatrain.csv"
+    try:
+        df = pd.read_csv(url)
+        return df
+    except Exception as e:
+        st.write("Error al cargar los datos:", e)
+        return None
+
+df = load_data()
+
+if df is not None:
+    st.write(df.head())
+else:
+    st.write("No se pudieron cargar los datos.")
+
+
 
 # Cargar los datos
 def load_data():
