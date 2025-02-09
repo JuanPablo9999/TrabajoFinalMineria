@@ -39,8 +39,8 @@ seccion = st.sidebar.radio("Tabla de Contenidos",
 
 # Cargar los datos
 def load_data():
-    df = pd.read_csv("https://github.com/JuanPablo9999/TrabajoFinalMineria/blob/main/datatrain.csv")
-    df_test = pd.read_csv("https://github.com/JuanPablo9999/TrabajoFinalMineria/blob/main/datatest.csv")
+    df = pd.read_csv("https://raw.githubusercontent.com/JuanPablo9999/TrabajoFinalMineria/main/datatrain.csv")
+    df_test = pd.read_csv("https://raw.githubusercontent.com/JuanPablo9999/TrabajoFinalMineria/main/datatest.csv")
     df.drop(columns=["id", "date"], inplace=True, errors='ignore')
     df_test.drop(columns=["id", "date"], inplace=True, errors='ignore')
     return df, df_test
