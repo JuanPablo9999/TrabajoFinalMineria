@@ -36,7 +36,7 @@ seccion = st.sidebar.radio("Tabla de Contenidos",
                             "Boxplots",
                             "Modelo clásico: RandomForest",  # Nueva sección
                            "Modelo de redes neuronales",
-                           "Conclusión: Selección del Mejor Modelo",  # Nueva ubicación])
+                           "Conclusión: Selección del Mejor Modelo"])  # Nueva ubicación])
 
 # Cargar los datos
 def load_data():
